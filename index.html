@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn NodeJs</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            text-align: justify;
+        }
+
+        #main {
+            margin: auto;
+            width: 80%;
+        }
+
+        /* body{
+            margin: 0;
+        }
+
+        #main {
+            margin: 10px;
+        } */
+
+        .ex {
+            background-color: rgb(246 240 251);
+            box-shadow: 0 0 10px 2px black;
+            padding: 10px;
+        }
+
+        .border {
+            border: 1px solid;
+            padding: inherit;
+        }
+
+        @media screen and (max-width : 600px) {
+            * {
+                font-size: 15px;
+                word-wrap: break-word;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            #main {
+                width: 100%
+            }
+
+            h1,
+            h2,
+            h3 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body onresize="myFunc()">
+    <div id="main">
+        <h1>NodeJs</h1>
+        <div class="ex">
+            <p class="border">
+                Node.js is an open source server environment
+                it is free and runs on various platforms (Windows, Linux, Unix, Mac OS X, etc.) !!!
+                Node.js uses JavaScript on the server<br>
+            </p>
+            <h4>Why Node.js??</h4>
+            <p class="border">
+                Node.js uses asynchronous programming!
+
+                A common task for a web server can be to open a file on the server and return the content to the client.
+
+                When the file system has opened and read the file, the server returns the content to the client.
+                Node.js eliminates the waiting, and simply continues with the next request.
+
+                Node.js runs single-threaded, non-blocking, asynchronous programming, which is very memory efficient.
+            </p>
+            <h3>What Can Node.js Do??</h3>
+            <p class="border">
+                Node.js can generate dynamic page content <br>
+                Node.js can create, open, read, write, delete, and close files on the server <br>
+                Node.js can collect form data <br>
+                Node.js can add, delete, modify data in your database
+            </p>
+            <h3> What is a Node.js File??</h3>
+            <p class="border">
+                Node.js files contain tasks that will be executed on certain events <br>
+                A typical event is someone trying to access a port on the server <br>
+                Node.js files must be initiated on the server before having any effect <br>
+                Node.js files have extension ".js"
+            </p>
+            <h3>NodeJs file :- server.js :- Go to project directory and run following commond :- node server.js :-
+                http://localhost:5000</h3>
+            <p class="border">
+                var http = require('http'); <br> <br>
+
+                http.createServer(function (req, res) { <br>
+                res.writeHead(200, {'Content-Type': 'text/plain'}); <br>
+                res.end('Hello World!'); <br>
+                }).listen(5000); <br>
+            </p>
+        </div>
+        <h3>Modules</h3>
+        <div class="ex">
+            <p class="border">
+                A module in JavaScript is just a file containing related code. In JavaScript, we use the import and
+                export keywords to share and receive functionalities respectively across different modules. The export
+                keyword is used to make a variable, function, class or object accessible to other modules. <br>
+                &bull; Core Modules (Built-in Modules) <br>
+                &bull; Third Party Modules (Include Modules) <br>
+                &bull; Local Modules. (Created Modules by coder) <br>
+            </p>
+            <h3>Core module</h3>
+            <div class="border" style="overflow-x: scroll;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Core Module
+                            </th>
+                            <th>Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://nodejs.org/api/http.html" target="_blank">http</a>
+                            </td>
+                            <td>http module includes classes, methods and events to create Node.js http server.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://nodejs.org/api/url.html" target="_blank">url</a>
+                            </td>
+                            <td>url module includes methods for URL resolution and parsing.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://nodejs.org/api/querystring.html" target="_blank">querystring</a>
+                            </td>
+                            <td>querystring module includes methods to deal with query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://nodejs.org/api/path.html" target="_blank">path</a>
+                            </td>
+                            <td>path module includes methods to deal with file paths.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://nodejs.org/api/fs.html" target="_blank">fs</a>
+                            </td>
+                            <td>fs module includes classes, methods, and events to work with file I/O.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://nodejs.org/api/util.html" target="_blank">util</a>
+                            </td>
+                            <td>util module includes utility functions useful for programmers.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3> Local Module</h3>
+            <div class="border">
+
+                You can create your own modules, and easily include them in your applications. <br>
+                create package.json :- by command : - <b>npm init -y</b> <br>
+                <p class="border">
+                    <b>file1.js</b> <br><br>
+                    let name = "Avinash"; <br>
+                    let age = 30; <br>
+                    let myFunc = function () { <br>
+                    &nbsp;&nbsp; console.log("I am function") <br>
+                    };<br>
+                    // only one element exports <br>
+                    // exports.myFunc = function () { <br>
+                    // &nbsp;&nbsp; console.log("I am function") <br>
+                    // };<br>
+                    module.exports = {name,age}
+                </p>
+                <p class="border">
+                    <b>file2.js</b> <br><br>
+                    const data = require("./file1.js")<br>
+                    console.log("import valur :-", data)<br> <br>
+
+                    run command on terminal :- npm file1.js
+                </p>
+            </div>
+        </div>
+        <!-- Node package manager  -->
+        <h1>NPM - Node Package Manager</h1>
+        <div class="ex">
+            <article class="article">
+                <!-- <span id="ezoic-pub-ad-placeholder-103" class="ezoic-adpicker-ad"></span> -->
+                <p>
+                    Node Package Manager (NPM) is a command line tool that installs, updates or uninstalls Node.js
+                    packages in your application. It is also an online repository for open-source Node.js packages. The
+                    node community around the world creates useful modules and publishes them as packages in this
+                    repository.
+                </p>
+                <!-- <div class="col-xs-12 col-sm-4 tips-block float-right">
+                    <span>
+                        <img class="img-fluid" src="../Content/images/tips.png" alt=""></span>
+                    It has now become a popular package manager for other open-source JavaScript frameworks like
+                    AngularJS, jQuery, Gulp, Bower etc.
+                </div> -->
+
+
+                <p>
+                    Official website: <a class="external-link" href="https://www.npmjs.com/"
+                        target="_blank">https://www.npmjs.com</a>
+                </p>
+
+                <p>
+                    NPM is included with Node.js installation. After you install Node.js, verify NPM installation by
+                    writing the following command in terminal or command prompt.
+                </p>
+                <mark>
+                    C:\&gt; npm -v
+                    <br>
+                    9.6.2
+                </mark>
+                <p>If you have an older version of NPM then you can update it to the latest version using the following
+                    command.</p>
+                <mark>
+                    C:\&gt; npm install npm -g
+                </mark>
+
+                <p>To access NPM help, write <strong>npm help</strong> in the command prompt or terminal window.</p>
+                <mark>
+                    C:\&gt; npm help
+                </mark>
+                <p>
+                    NPM performs the operation in two modes: global and local. In the global mode, NPM performs
+                    operations which affect all the Node.js applications on the computer whereas in the local mode, NPM
+                    performs operations for the particular local directory which affects an application in that
+                    directory only.
+                </p>
+                <h2>Install Package Locally</h2>
+
+                <p>
+                    Use the following command to install any third party module in your local Node.js project folder.
+                </p>
+
+                <mark>
+                    C:\&gt;npm install &lt;package name&gt;
+                </mark>
+
+                <p>
+                    For example, the following command will install ExpressJS into MyNodeProj folder.
+                </p>
+
+                <mark>
+                    C:\MyNodeProj&gt; npm install express
+                </mark>
+
+                <p>
+                    All the modules installed using NPM are installed under <strong>node_modules</strong> folder. The
+                    above command will create ExpressJS folder under node_modules folder in the root folder of your
+                    project and install Express.js there.
+                </p>
+
+                <h2>Add Dependency into package.json</h2>
+
+                <p>
+                    Use --save at the end of the install command to add dependency entry into package.json of your
+                    application.
+                </p>
+
+                <p>
+                    For example, the following command will install ExpressJS in your application and also adds
+                    dependency entry into the package.json.
+                </p>
+
+                <h2>Install Package Globally</h2>
+
+                <p>
+                    NPM can also install packages globally so that all the node.js application on that computer can
+                    import and use the installed packages. NPM installs global packages into
+                    <i>/&lt;User&gt;/local/lib/node_modules</i> folder.
+                </p>
+
+                <p>
+                    Apply -g in the install command to install package globally. For example, the following command will
+                    install ExpressJS globally.
+                </p>
+
+                <mark>
+                    C:\MyNodeProj&gt; npm install -g express
+                </mark>
+
+                <h2>Update Package</h2>
+
+                <p>
+                    To update the package installed locally in your Node.js project, navigate the command prompt or
+                    terminal window path to the project folder and write the following update command.
+                </p>
+
+                <mark>
+                    C:\MyNodeProj&gt; npm update &lt;package name&gt;
+                </mark>
+
+                <p>
+                    The following command will update the existing ExpressJS module to the latest version.
+                </p>
+
+                <mark>
+                    C:\MyNodeProj&gt; npm update express
+                </mark>
+
+                <h2>Uninstall Packages</h2>
+
+                <p>
+                    Use the following command to remove a local package from your project.
+                </p>
+
+                <mark>
+                    C:\&gt;npm uninstall &lt;package name&gt;
+                </mark>
+
+                <p>
+                    The following command will uninstall ExpressJS from the application.
+                </p>
+
+                <mark>
+                    C:\MyNodeProj&gt; npm uninstall express
+                </mark>
+
+                <p>
+                    Visit <a class="external-link" href="https://docs.npmjs.com/" target="_blank">docs.npmjs.com</a> for
+                    more information on Node Package Manager.
+                </p>
+
+            </article>
+        </div>
+        <!-- Node web server -->
+        <h1>Web server</h1>
+        <div class="ex">
+
+            <h1>Node.js Web Server</h1>
+
+            <p>
+                To access web pages of any web application, you need a <a href="https://en.wikipedia.org/wikiWeb_server"
+                    target="_blank">web server</a>. The web server
+                will handle all the http requests for the web application
+                e.g IIS is a web server for ASP.NET web applications and Apache is a web server for PHP or Java web
+                applications.
+            </p>
+            <p>
+                Node.js provides capabilities to create your own web server which will handle HTTP requests
+                asynchronously.
+                You can use IIS or Apache to run Node.js web application but it is recommended to use Node.js web
+                server.
+            </p>
+
+            <h2>Create Node.js Web Server</h2>
+            <p>
+                Node.js makes it easy to create a simple web server that processes incoming requests asynchronously.
+            </p>
+            <p>The following example is a simple Node.js web server contained in server.js file. </p>
+
+            <b>server.js</b> <br>
+            <p class="border">
+                let http = require('http'); <br>
+
+                var server = http.createServer(function (req, res) { <br><br>
+                &nbsp;&nbsp; //handle incomming requests here..<br> <br>
+                }) <br>
+                server.listen(5000); <br>
+                console.log('Node.js web server at port "http://localhost:5000" is running..')
+            </p>
+
+            <p>
+                In the above example, we import the http module using require() function. The http module is a core
+                module
+                of
+                Node.js, so no need to install it using NPM. The next step is to call createServer() method of http
+                and
+                specify callback function with request and response parameter. Finally, call listen() method of
+                server
+                object which was returned from createServer() method with port number, to start listening to
+                incoming
+                requests on port 5000. You can specify any unused port here.
+            </p>
+            <p>
+                Run the above web server by writing <code>node server.js</code> command in command prompt or
+                terminal window
+                and it will display message as shown below.
+            </p>
+
+            <mark>
+                C:\&gt; node server.js <br>
+                Node.js web server at port 5000 is running..
+            </mark>
+            <p>
+                This is how you create a Node.js web server using simple steps. Now, let's see how to handle HTTP
+                request
+                and send response in Node.js web server.
+            </p>
+
+            <h2>Handle HTTP Request</h2>
+            <p>
+                The http.createServer() method includes
+                <a href="https://nodejs.org/api/http.html#http_http_incomingmessage" target="_blank">request</a> and
+                <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse" target="_blank">response</a>
+                parameters which is supplied by Node.js. The request object can be used to get information about the
+                current
+                HTTP request e.g., url, request header, and data. The response object can be used to send a response
+                for a
+                current HTTP request.
+            </p>
+            <p>The following example demonstrates handling HTTP request and response in Node.js.</p>
+
+            <p class="border">
+                var http = require('http'); // Import Node.js core module <br>
+                <br>
+                var server = http.createServer(function (req, res) { //create web server <br>
+                &nbsp;&nbsp; if (req.url == '/') { //check the URL of the current request <br>
+                <br>
+                // set response header <br>
+                res.writeHead(200, { 'Content-Type': 'text/html' }); <br>
+                <br>
+                // set response content <br>
+                res.write('
+                &lt;html&gt;
+
+                &lt;body&gt;
+                &lt;p&gt;This is home Page.&lt;/p&gt;
+                &lt;/body&gt;
+
+                &lt;/html&gt;'); <br>
+                res.end(); <br>
+                <br>
+                } <br>
+                else if (req.url == "/student") { <br>
+                <br>
+                res.writeHead(200, { 'Content-Type': 'text/html' }); <br>
+                res.write('&lt;html&gt;
+
+                &lt;body&gt;
+                &lt;p&gt;This is student Page.&lt;/p&gt;
+                &lt;/body&gt;
+
+                &lt;/html&gt;'); <br>
+                res.end(); <br>
+                <br>
+                } <br>
+                else if (req.url == "/admin") { <br>
+                <br>
+                res.writeHead(200, { 'Content-Type': 'text/html' }); <br>
+                res.write('&lt;html&gt;
+
+                &lt;body&gt;
+                &lt;p&gt;This is admin Page.&lt;/p&gt;
+                &lt;/body&gt;
+
+                &lt;/html&gt;'); <br>
+                res.end(); <br>
+                <br>
+                } <br>
+                else <br>
+                res.end('Invalid Request!'); <br>
+                <br>
+                }); <br>
+                <br>
+                server.listen(5000); //6 - listen for any incoming requests <br>
+                <br>
+                console.log('Node.js web server at port 5000 is running..') <br>
+            </p>
+            <p>
+                In the above example, req.url is used to check the url of the current request and based on that it
+                sends the
+                response.
+                To send a response, first it sets the response header using writeHead() method and then writes a
+                string as a
+                response body using write() method. Finally, Node.js web server sends the response using end()
+                method.
+            </p>
+
+            <p>
+                Now, run the above web server as shown below.
+            </p>
+            <mark>
+                C:\&gt; node server.js
+                <br>
+                Node.js web server at port 5000 is running..
+            </mark>
+            <p>
+                To test it, you can use the command-line program curl, which most Mac and Linux machines have
+                pre-installed.
+            </p>
+
+            <mark>
+                curl -i http://localhost:5000
+            </mark>
+
+            <p>
+                You should see the following response.
+            </p>
+
+            <mark>
+                HTTP/1.1 200 OK
+                <br>
+                Content-Type: text/plain
+                <br>
+                Date: Tue, 8 Sep 2015 03:05:08 GMT
+                <br>
+                Connection: keep-alive
+                <br>
+                This is home page.
+                <br>
+            </mark>
+            <p>
+                For Windows users, point your browser to <i>http://localhost:5000</i> and see the following result.
+            </p>
+
+            <figure>
+                <img class="img-fluid" alt="" src="../image/webserver-response.webp"></a>
+                <figcaption>Node.js Web Server Response</figcaption>
+            </figure>
+            <p>The same way, point your browser to <i>http://localhost:5000/student</i> and see the following
+                result.</p>
+            <figure>
+                <img class="img-fluid" alt="" src="../image/webserver-response2.webp"></a>
+                <figcaption>Node.js Web Server Response</figcaption>
+            </figure>
+
+            <p>
+                It will display "Invalid Request" for all requests other than the above URLs.
+            </p>
+            <h2>Sending JSON Response</h2>
+            <p>The following example demonstrates how to serve JSON response from the Node.js web server.</p>
+            server.js
+
+            <div class="border">
+                let http = require('http'); <br>
+
+                let server = http.createServer(function(req, res) { <br>
+
+                &nbsp;&nbsp; if (req.url == '/data') { <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; //check the URL of the current request <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; res.writeHead(200, {'Content-Type':'application/json'}); <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; res.write(JSON.stringify({ message:"Hello World"})); <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; res.end(); <br>
+                &nbsp;&nbsp; } <br>
+                }); <br>
+
+                server.listen(5000); <br>
+
+                console.log('Node.js web server at port 5000 is running..') <br>
+
+            </div>
+
+        </div>
+        <!-- ....fs module........... -->
+        <h3>fs modules</h3>
+        <div class="ex">
+            <p>
+                The Node.js file system module allows you to work with the file system on your computer. <br>
+                To include the File System module, use the require() method: <br><br>
+                var fs = require('fs');
+            </p>
+            <ul>
+                Common use for the File System module:
+                <li> Read files </li>
+                <li> Create files </li>
+                <li> Update files </li>
+                <li> Delete files </li>
+                <li> Rename files </li>
+            </ul>
+        </div>
+        <h3>File System Module by NodeJs</h3>
+        <div class="ex">
+            <p class="border">
+                The Node.js file system module allows you to work with the file system on your computer.
+                <br>
+                To include the File System module, use the require() method:- <br>
+                CRUD operation with Common use File System module: <br> <br>
+                const fs = require('fs'); <br>
+                &bull; Create files :- fs.writeFileSync("myfile.txt","Text in file") <br>
+                &bull; Read files :- fs.readFile("myfile.txt", "utf8",function(err,result){}) <br>
+                &bull; Update files :- fs.appendFile("myfile.txt", "New text added/ update", function(err) {}) <br>
+                &bull; Rename files :- fs.rename("myfile.txt","newName.txt", (err) => {}) <br>
+                &bull; Delete files :- fs.unlinkSync("myfile.txt") <br>
+                <br>
+                var http = require('http'); <br>
+                var fs = require('fs'); <br>
+                //................write file sync...............// <br>
+                fs.writeFileSync("myfile.html","
+                &lt;h1&gt;Heading of create file.&lt;/h1&gt;") <br>
+                <br>
+                //..............read file....................// <br>
+                fs.readFile("myfile.html", "utf8", (err, result) => { <br>
+                console.log("first :", result) <br>
+                }) <br>
+                <br>
+                update file <br>
+                fs.appendFile("myfile.html", "i am a text here", (err) => { <br>
+                if (!err) { <br>
+                console.log("updat file") <br>
+                } <br>
+                }) <br>
+                <br>
+                fs.rename("myfile.html","myfile.txt", (err) => { <br>
+                if (!err) { <br>
+                console.log("renamed file") <br>
+                } <br>
+                }) <br>
+                <br>
+                fs.unlinkSync("myfile.txt") <br>
+            </p>
+        </div>
+        <h3>Read file </h3>
+        <div class="ex">
+            The fs.readFile() method is used to read files.
+            <br><br>
+            <b>file1.html</b>
+            <p class="border">
+                &lt;html&gt; <br>
+                &lt;body&gt; <br>
+                &nbsp;&nbsp; &lt;h1&gt;This is Heading&lt;/h1&gt; <br>
+                &nbsp;&nbsp; &lt;p&gt;This is paragraph.&lt;/p&gt; <br>
+                &lt;/body&gt; <br>
+                &lt;/html&gt;
+            </p>
+            server.js
+            <p class="border">
+                var http = require('http'); <br>
+                var fs = require('fs'); <br>
+                http.createServer(function (req, res) { <br>
+                &nbsp;&nbsp;fs.readFile('demofile1.html', function(err, data) { <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;res.writeHead(200, {'Content-Type': 'text/html'}); <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;res.write(data); <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return res.end(); <br>
+                &nbsp;&nbsp;}); <br>
+                }).listen(8080);
+            </p>
+
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>

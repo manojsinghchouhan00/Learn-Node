@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mongo db</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            text-align: justify;
+        }
+
+        #main {
+            margin: auto;
+            width: 80%;
+        }
+
+        body {
+            margin: 0;
+        }
+
+
+        .ex {
+            background-color: rgb(246 240 251);
+            box-shadow: 0 0 10px 2px black;
+            padding: 10px;
+        }
+
+        .border {
+            border: 1px solid;
+            padding: inherit;
+        }
+
+        #myid {
+            /* width: 1000px; */
+            background-color: black;
+            overflow-x: scroll;
+            /* -ms-overflow-style: none;  IE and Edge */
+            scrollbar-width: none;
+            white-space: nowrap;
+        }
+
+        #myid li {
+            color: aliceblue;
+
+            display: inline-block;
+            list-style-type: none;
+            padding: 5px;
+        }
+
+        #myid li a {
+            text-decoration: none;
+            padding: 5px;
+        }
+
+        #myid li :hover {
+            background-color: blueviolet;
+        }
+
+        #myid li :active {
+            color: rgb(47, 0, 255);
+        }
+
+        #myid li :focus {
+            color: rgb(0, 255, 30);
+        }
+
+        #myid li a:target {
+            color: red;
+        }
+
+        :target {
+            color: red;
+        }
+
+        @media screen and (max-width: 600px) {
+            * {
+                font-size: 15px;
+                word-wrap: break-word;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            #main {
+                width: 100%;
+            }
+
+            h1,
+            h2,
+            h3 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h1>MONGODB</h1>
+        <div class="ex">
+            <p class="border">
+                MongoDB is a non-relational document database that provides support for JSON-like storage. The MongoDB
+                database has a flexible data model that enables you to store unstructured data, and it provides full
+                indexing support, and replication with rich and intuitive APIs. <br> <br>
+                MongoDB is a source-available, cross-platform, document-oriented database program. Classified as a NoSQL
+                database product, MongoDB utilizes JSON-like documents with optional schemas. MongoDB is developed by
+                MongoDB Inc. and current versions are licensed under the Server Side Public License.
+            </p>
+            <p class="border">
+                <b><u>MongoDB Document</u></b> <br>
+                Records in a MongoDB database are called documents, and the field values may include numbers, strings,
+                booleans, arrays, or even nested documents. <br>
+                { <br>
+                &nbsp;&nbsp; title: "Post Title 1", <br>
+                &nbsp;&nbsp; body: "Body of post.", <br>
+                &nbsp;&nbsp; category: "News", <br>
+                &nbsp;&nbsp; likes: 1, <br>
+                &nbsp;&nbsp; tags: ["news", "events"], <br>
+                &nbsp;&nbsp; date: Date() <br>
+                } <br>
+            </p>
+            <h2>SQL vs Document Databases</h2>
+            <p class="border">
+
+                SQL databases are considered relational databases. They store related data in separate tables. When data
+                is needed, it is queried from multiple tables to join the data back together. <br><br>
+
+                MongoDB is a document database which is often referred to as a non-relational database. This does not
+                mean that relational data cannot be stored in document databases. It means that relational data is
+                stored differently. A better way to refer to it is as a non-tabular database. <br><br>
+
+                MongoDB stores data in flexible documents. Instead of having multiple tables you can simply keep all of
+                your related data together. This makes reading your data very fast.<br><br>
+
+                You can still have multiple groups of data too. In MongoDB, instead of tables these are called
+                collections.
+            </p>
+            <h3>Local vs Cloud Database</h3>
+            <p class="border">
+                MongoDB can be installed locally, which will allow you to host your own MongoDB server on your hardware.
+                This requires you to manage your server, upgrades, and any other maintenance. <br><br>
+
+                You can download and use the MongoDB open source <a target="_blank"
+                    href="https://www.mongodb.com/try/download/community?utm_campaign=w3schools_mdb&amp;utm_source=w3schools&amp;utm_medium=referral">Community
+                    Server</a> on your hardware for free.
+            </p>
+            <h3></h3>
+            <p class="border">
+                There are many ways to connect to your MongoDB database.
+
+                We will start by using the MongoDB Shell, mongosh. <br><br>
+                <!-- <b>mongosh --version</b>   -->
+            </p>
+
+        </div>
+    </div>
+</body>
+
+</html>

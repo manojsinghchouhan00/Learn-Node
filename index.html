@@ -596,7 +596,7 @@
                 <br>
                 var http = require('http'); <br>
                 var fs = require('fs'); <br>
-                //................write file sync...............// <br>
+                //................Create file ...............// <br>
                 fs.writeFileSync("myfile.html","
                 &lt;h1&gt;Heading of create file.&lt;/h1&gt;") <br>
                 <br>
@@ -605,19 +605,23 @@
                 console.log("first :", result) <br>
                 }) <br>
                 <br>
-                update file <br>
+                //................ update file................... <br>
                 fs.appendFile("myfile.html", "i am a text here", (err) => { <br>
                 if (!err) { <br>
                 console.log("updat file") <br>
                 } <br>
                 }) <br>
                 <br>
+                //................ Rename file................... <br>
+
                 fs.rename("myfile.html","myfile.txt", (err) => { <br>
                 if (!err) { <br>
                 console.log("renamed file") <br>
                 } <br>
                 }) <br>
                 <br>
+                //................ Delete file................... <br>
+
                 fs.unlinkSync("myfile.txt") <br>
             </p>
         </div>
@@ -647,6 +651,120 @@
                 }).listen(8080);
             </p>
 
+        </div>
+        <h3>Node NPM :-</h3>
+        <div class="ex">
+            <p>
+                NPM is a package manager for Node.js packages, or modules if you like.
+
+                www.npmjs.com hosts thousands of free packages to download and use.
+
+                The NPM program is installed on your computer when you install Node.js
+            </p>
+            <p>
+                <b>What is a Package?</b> <br>
+                A package in Node.js contains all the files you need for a module.
+                Modules are JavaScript libraries you can include in your project.
+            </p>
+            <p>
+                <b>How to install package.json file ?</b>
+                npm init OR <br>
+                npm init -y OR <br>
+                download any module/entitiy like npm install color
+            </p>
+        </div>
+        <h3>Make file in folder</h3>
+        <h3>Use path module</h3>
+        <h3>Get file name and print</h3>
+        <div class="ex">
+            <p>Create a folder in your project directory</p>
+            <p class="border">
+                // Create file in folder <br> <br>
+                const fs = require('fs') <br>
+                const path = require('path') <br><br>
+                const dirPath = path.join(__dirname , "myFolder"); <br>
+                for(let i = 1 ; i &lt; 6; i++){ <br>
+                fs.writeFileSync(dirPath+"myFile"+i+".txt", "Simpale text in all File") <br>
+                } <br> <br>
+                // Listing file inside of folder <br> <br>
+                fs.readdir(dirPath, (err,file)=>{ <br>
+                // console.log("first file:",file) <br>
+                file.forEach((ele)=>{ <br>
+                console.log(ele) <br>
+                }) <br>
+                })
+
+            </p>
+        </div>
+        <h3>Input from commond line</h3>
+        <div class="ex">
+            <p>Set input from commond line</p>
+            <p>Create and delete file from input</p>
+            <p class="border">
+                const input = process.argv; <br>
+                console.log("i am proceess",process.argv) <br><br>
+                <b>Output :-</b> <br><br>
+                i am proceess [ <br>
+                'C:\\Program Files\\nodejs\\node.exe', // file save path <br>
+                'C:\\Users\\dell\\Desktop\\node\\file.js' // file Run path <br>
+                ]
+            </p>
+            <p class="border">
+                const fs = require('fs'); <br>
+                const input = process.argv; <br>
+                fs.writeFileSync(input[2],input[3]) <br><br>
+                Run this file with :- node file.js apple.txt "i an text here and there."
+            </p>
+            <p class="border">
+                const fs = require('fs'); <br>
+                const input = process.argv; <br>
+                // console.log("i am proceess",process.argv) <br>
+
+                if (input[2] === "add") { <br>
+                console.log(" addddd", input[2]) <br>
+                fs.writeFileSync(input[3],input[4]) <br>
+                } else if (input[2] === 'remove') { <br>
+                fs.unlinkSync(input[3]) <br>
+                } else { <br>
+                console.log("Invalid input") <br>
+                } <br> <br>
+                run file with following commond :- node file.js add/remove org.txt "Simple text here"
+            </p>
+        </div>
+        <h3>Async basics in node js</h3>
+        <div class="ex">
+            <p><b>Syncronous :-</b> One task perform at a time </p>
+            <p><b>ASyncronous :-</b> second task do not wait to finish first task. It work parallary.</p>
+            <p class="border">
+                let a = 10; <br>
+                let b = 0; <br> <br>
+                b = 20; <br> <br>
+                console.log(a+b)
+            </p>
+            <p class="border">
+                let a = 10; <br>
+                let b = 0; <br> <br>
+                // Asyncronous work (Create problem)<br>
+                setTimeout(() => { <br>
+                b = 20; <br>
+                }, 2000); <br>
+                console.log("first :", a + b) <br>
+                console.log(a+b)
+            </p>
+            <p class="border">
+                let a = 10; <br>
+                let b = 0; <br><br>
+                // Asyncronous work by promises (Resolve problem) <br><br>
+                let waitdata = new Promise((resolve, reject) => { <br>
+                setTimeout(() => { <br>
+                resolve(20); <br>
+                }, 5000); <br>
+                }) <br><br>
+                waitdata.then((data) => { <br>
+                b = data; <br>
+                console.log("first :", a + b) <br>
+                }) <br>
+            </p>
         </div>
     </div>
     <script>

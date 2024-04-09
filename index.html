@@ -766,6 +766,155 @@
                 }) <br>
             </p>
         </div>
+        <h3>How to work nodejs</h3>
+        <div class="ex">
+            <p>
+                1. Call stack (LIFO) , (push:- Add new element in stack) and (pop :- Remove the top elemnt)<br>
+                2. Node Api <br>
+                3. callback queue
+            </p>
+            <p>
+                1. Nodejs simply enter the event loop after executing the input script. <br>
+                2. Nodejs exist the event loop where there are no more callback to perform. This behavior is like
+                browser. <br>
+                3. JS :- The event loop is hidden from the user. <br>
+                4. HTTP :- This is first class citizen in nodejs designed with streaming and low latency in mind.
+            </p>
+        </div>
+        <h2>Express js</h2>
+        <div class="ex">
+            <p>
+                What Is Express JS? Express is a node js web application framework that provides broad features for
+                building web and mobile applications. It is used to build a single page, multipage, and hybrid web
+                application. It's a layer built on the top of the Node js that helps manage servers and routes.
+            </p>
+            <h5>How to use expressjs</h5>
+            <p>
+                ExpressJS is framwork of nodejs, <br>
+                like :- <br>
+                PHP ___ Laravel <br>
+                JavaScript ___ Angular <br>
+                Java ___ Springboot and Hibernet.
+            </p>
+            <p>
+                <b>Install express</b>
+                npm install express <br>
+            </p>
+            <p class="border">
+                const express = require('express') <br>
+                const app = express(); <br>
+                // make a route <br>
+                app.get("/", (req,resp)=>{ <br>
+                resp.send("Hellow this is Home page") <br>
+                })<br><br>
+                app.get("/about", (req,resp)=>{ <br>
+                resp.send("Hellow this is About page") <br>
+                }) <br><br>
+                app.listen(8080)
+            </p>
+            <h3>Routing params (request and responce)</h3>
+            <p>
+                request and responce :- it is intract between client and server. <br>
+                request :- It is from clientside (By browser query) <br>
+                responce :- responce by server
+            </p>
+            <p class="border">
+                const express = require('express') <br>
+                const app = express(); <br>
+                // ?name=manraj (query from browser/ req from browser) <br>
+                app.get("/", (req,resp)=>{ <br>
+                resp.send("Hellow this is Home page") <br>
+                console.log("Request from browser :-", req.query.name)
+                })<br><br>
+                app.listen(8080)
+            </p>
+        </div>
+        <h3>Render HTML and JSON on page</h3>
+        <div class="ex">
+            <p class="border">
+                const express = require('express') <br>
+                const app = express(); <br> <br>
+                app.get("/", (req,resp)=>{ <br>
+                resp.send("&lt;h1&gt;Hellow this is HTML on page&lt;/h1&gt;") <br>
+                })<br><br>
+
+                app.get("/about", (req,resp)=>{ <br>
+                resp.send(`&lt;input type="text" placeholder="first name" name=${req.query.name} &gt;`) <br>
+                })<br><br>
+
+                app.get("/about", (req,resp)=>{ <br>
+                console.log(req.query.name) <br>
+                resp.send(`&lt;input type="text" placeholder="first name" value=${req.query.name} &gt; <br>
+                &lt;button&gt; Click &lt;/button&gt; <br>
+                &lt;a href="/"&gt; Go HOME &lt;/a&gt;`) <br>
+                }) <br><br>
+
+                app.listen(8080)
+            </p>
+        </div>
+        <h3>Make Html page</h3>
+        <div class="ex">
+            <p>Make folder for html file and access it??</p>
+            <p>Make Html files</p>
+            <p>Load Html files</p>
+            <div class="border">
+                makeFolder <br>
+                home.html , about.html
+                <p class="border">
+                    &lt;!DOCTYPE html&gt; <br>
+                    &lt;html lang="en"&gt; <br>
+                    &lt;head&gt; <br>
+                    &nbsp;&nbsp; &lt;meta charset="UTF-8"&gt; <br>
+                    &nbsp;&nbsp; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; <br>
+                    &nbsp;&nbsp; &lt;title&gt;Document&lt;/title&gt; <br>
+                    &lt;/head&gt; <br>
+                    &lt;body&gt; <br>
+                    &nbsp;&nbsp; &lt;h1&gt;This is home page&lt;/h1&gt; <br>
+                    &lt;/body&gt; <br>
+                    &lt;/html&gt; <br>
+                </p>
+
+                <p class="border">
+                    const express = require('express') <br>
+                    const path = require('path') <br>
+                    <br>
+                    const app = express() <br>
+                    <br>
+                    const publicpath = path.join(__dirname,"makeFolder") <br>
+                    <br>
+                    app.use(express.static(publicpath)); <br>
+                    <br>
+                    app.listen(8080);
+                </p>
+            </div>
+        </div>
+        <h3>Remove extension from url</h3>
+        <div class="ex">
+            <p class="border">
+                const express = require('express') <br>
+                const path = require('path') <br>
+
+                const app = express() <br>
+
+                const publicpath = path.join(__dirname, "makeFolder") <br>
+
+                 <br>
+
+                app.get("/home", (req, resp) => { <br>
+                resp.sendFile(`${publicpath}/home.html`) <br>
+                }) <br>
+                <br>
+                app.get("/about", (req, resp) => { <br>
+                resp.sendFile(`${publicpath}/about.html`) <br>
+                }) <br>
+                <br>
+                app.get("/title", (req, resp) => { <br>
+                resp.sendFile(`${publicpath}/title.html`) <br>
+                }) <br>
+                app.listen(8080); <br> <br>
+                Run on browser :- http://localhost:8080/about
+            </p>
+        </div>
     </div>
     <script>
 

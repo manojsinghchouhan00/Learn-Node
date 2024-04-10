@@ -1,4 +1,12 @@
+const express = require('express')
 
-const a = require("./file.js")
-const myFunc = require("./file.js")
-console.log("Import name",myFunc)
+const app = express()
+
+
+app.get("/", (req, resp) => {
+    resp.sendFile("<h1>Welcome to home js</h1>")
+  })
+
+  app.get("/user", (req, resp) => {
+    resp.sendFile("<h1>Welcome to user js</h1>")
+  })

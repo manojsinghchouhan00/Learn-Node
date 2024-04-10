@@ -897,9 +897,7 @@
                 const app = express() <br>
 
                 const publicpath = path.join(__dirname, "makeFolder") <br>
-
-                 <br>
-
+                <br>
                 app.get("/home", (req, resp) => { <br>
                 resp.sendFile(`${publicpath}/home.html`) <br>
                 }) <br>
@@ -913,6 +911,121 @@
                 }) <br>
                 app.listen(8080); <br> <br>
                 Run on browser :- http://localhost:8080/about
+            </p>
+        </div>
+        <h3>Middleware</h3>
+
+        <!-- // middlewarwe ek function hai jo roue ke sath use hota hai esse req and resp object ko manipulate  karte hai. middleware ek bar banakar bar bar use karte hai-->
+
+        <div class="ex">
+            <p>
+                Middleware functions are functions that have access to the request object (req), the response object
+                (res), and the next middleware function in the application’s request-response cycle. The next middleware
+                function is commonly denoted by a variable named next.
+            </p>
+            <ul>
+                Middleware functions can perform the following tasks:
+                <li> Execute any code. </li>
+                <li> Make changes to the request and the response objects. </li>
+                <li> End the request-response cycle. </li>
+                <li> Call the next middleware function in the stack. </li>
+            </ul>
+            <p>
+                If the current middleware function does not end the request-response cycle, it must call next() to pass
+                control to the next middleware function. Otherwise, the request will be left hanging.
+            </p>
+            <h5>Application middleware</h5>
+            <p class="border">
+                const express = require("express") <br>
+                const app = express(); <br> <br>
+
+                // const requireFilter = (req, resp, next) => { <br>
+                // console.log("reuest filter") <br>
+                // next() <br>
+                // } <br>
+                <br>
+                const requireFilter = (req, resp, next) => { <br>
+                console.log("reuest filter") <br>
+                if(!req.query.age){ <br>
+                resp.send("Please provide age") <br>
+                }else if(req.query.age&lt;18){ <br>
+                resp.send("You can't access my web page") <br>
+                }else{ <br>
+                next() <br>
+                } <br>
+                } <br>
+                app.use(requireFilter) <br><br>
+
+                app.get("/", (req,resp)=>{ <br>
+                resp.send("Welcome to Home page") <br>
+                }) <br> <br>
+
+                app.get("/user", (req,resp)=>{ <br>
+                resp.send("Welcome to User page") <br>
+                }) <br> <br>
+                app.listen(8080)
+            </p>
+            <h5>Route level middleware</h5>
+            <p>
+                Route level middleware :- apply only one or two route out of 10 route called route level middleware.
+            </p>
+            <p class="border">
+                const express = require("express") <br>
+                const app = express(); <br>
+                <br>
+                const requireFilter = (req, resp, next) => { <br>
+                if (!req.query.age) { <br>
+                resp.send("Please provide age") <br>
+                } else if (req.query.age &lt; 18) { <br>
+                resp.send("You can't access my web page") <br>
+                } else { <br>
+                next() <br>
+                } <br>
+                console.log("reuest filter") <br>
+                } <br>
+                <br>
+                app.get("/", requireFilter, (req, resp) => { <br>
+                resp.send("Welcome to Home page") <br>
+                }) <br>
+                <br>
+                app.get("/user", (req, resp) => { <br>
+                resp.send("Welcome to User page") <br>
+                }) <br>
+                <br>
+                app.listen(8080) <br>
+            </p>
+            <h3>Group level middleware</h3>
+            <p class="border">
+                const express = require("express") <br>
+                const app = express(); <br>
+                const route = express.Router(); <br><br>
+
+                const requireFilter = (req, resp, next) => { <br>
+                if (!req.query.age) { <br>
+                resp.send("Please provide age") <br>
+                } else if (req.query.age &lt; 18) { <br>
+                resp.send("You can't access my web page") <br>
+                } else {
+                next() <br>
+                }<br>
+                console.log("reuest filter") <br>
+                }<br><br>
+                route.use(requireFilter); <br><br>
+
+
+                route.get("/",requireFilter, (req, resp) => { <br>
+                resp.send("Welcome to Home page") <br>
+                })<br><br>
+
+                route.get("/user", (req, resp) => { <br>
+                resp.send("Welcome to User page") <br>
+                })<br><br>
+
+                app.get("/about", (req, resp) => { <br>
+                resp.send("Welcome to About page"); <br>
+                })<br><br>
+                app.get("*",route); <br>
+                app.listen(8080) <br>
             </p>
         </div>
     </div>

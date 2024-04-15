@@ -124,6 +124,12 @@
                 &nbsp;&nbsp; date: Date() <br>
                 } <br>
             </p>
+            <p>
+                In a simple word mongo db is NOSQL database <br>
+                The data store in collection. <br>
+                Collection don't have rows and columns. <br>
+                Data store in a form of object. <br>
+            </p>
             <h2>SQL vs Document Databases</h2>
             <p class="border">
 
@@ -140,24 +146,88 @@
                 You can still have multiple groups of data too. In MongoDB, instead of tables these are called
                 collections.
             </p>
-            <h3>Local vs Cloud Database</h3>
+
+            <h3>MongoDb shell commond :</h3>
             <p class="border">
-                MongoDB can be installed locally, which will allow you to host your own MongoDB server on your hardware.
-                This requires you to manage your server, upgrades, and any other maintenance. <br><br>
-
-                You can download and use the MongoDB open source <a target="_blank"
-                    href="https://www.mongodb.com/try/download/community?utm_campaign=w3schools_mdb&amp;utm_source=w3schools&amp;utm_medium=referral">Community
-                    Server</a> on your hardware for free.
+                &bull; show dbs (Show all database) <br>
+                &bull; use newbdName :- Create database <br>
+                &bull; db.dropDatabase() :- Delete current database<br>
             </p>
-            <h3></h3>
             <p class="border">
-                There are many ways to connect to your MongoDB database.
-
-                We will start by using the MongoDB Shell, mongosh. <br><br>
-                <!-- <b>mongosh --version</b>   -->
+                &bull; show collections :- Show all collection in a database. <br>
+                &bull; db.createCollection("collectionName") :- Create collection in a database. <br>
+                &bull; db.collectionName.drop() :- Delete collection in a database.<br>
             </p>
+            <h3>CRUD operation in mongoDB</h3>
+            <p class="border">
+                1. Create database : use e-comm :- Switch database <br>
+                2. Create collection : bd.createCollection("product") <br>
+                <br>
+                create :- db.product.insertOne({name : "2a", brand : "Nothing", price : 250}) <br><br>
+                Read :- db.product.find() <br> <br>
+                Update :- db.product.updateOne({name : "2a"}, {$set : {brand :"Samsang galaxy"}})
+                <br><br>
+                Delete :- db.product.deleteOne({brand : "Apple"})
+            </p>
+            <h3>connect node with mongoDB</h3>
+            <p class="border">
+                1. install mongoDB package. <br>
+                2. Connect mongoDB with nodejs <br>
+                3. Show data from mongoDB <br><br>
 
+                npm i mongodb <br> <br>
+                const {mongoClient} = require("mongodb") <br>
+                // const mongoClient = require("mongodb").mongoClient <br><br>
+                const url = "mongodb://localhost:27017"; <br> <br>
+                const client = new mongoClient(url) <br> <br>
+                const batabase = "e-comm" <br> <br>
+                async function getData(){ <br>
+                &nbsp;&nbsp; let result = await client.connect() <br>
+                &nbsp;&nbsp; let db = result.db("e-comm") <br>
+                &nbsp;&nbsp; let collection = db.collection("product"); <br>
+                &nbsp;&nbsp; console.log(collecion.find({}).toArray()) <br><br>
+                &nbsp;&nbsp; // let resp = await collection.find({}).toArray() <br>
+                &nbsp;&nbsp; // console.log(resp); <br>
+                } <br>
+                getData();
+            </p>
+            <h3>Read data from mongodb</h3>
+            <p>
+                1. Read data from mongodb <br>
+                2. Make file for db Connection <br>
+                3. Handle Promise. <br>
+            </p>
+            <p class="border">
+                const {MongoClient} = require("mongodb") <br>
+                const url = "mongodb://localhost:27017"; <br> <br>
+                const batabase = "e-comm" <br> <br>
+                const client = new MongoClient(url) <br> <br>
+                async function dbConnection(){ <br>
+                &nbsp;&nbsp; let result = await client.connect() <br>
+                &nbsp;&nbsp; let db = result.db("e-comm") <br>
+                &nbsp;&nbsp; return db.collection("product"); <br>
+                } <br><br>
+
+                <!--  old way -->
+                // Way one
+                dbConnection().then((resp)=>{ <br>
+                resp.find().toArray().then((data)=>{ <br>
+                console.log("data :-",data) <br>
+                }) <br>
+                }) <br><br>
+
+                // Modern way <br>
+                <!-- Modern way --> <br>
+                const main = async ()=>{ <br>
+                let data = await dbConnection(); <br>
+                data = await data.find().toArray(); <br>
+                console.log("data :-", data) <br>
+                } <br>
+                main(); <br><br>
+                module.export = dbConnection;
+            </p>
         </div>
+
     </div>
 </body>
 

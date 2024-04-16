@@ -1,30 +1,18 @@
-const express = require('express')
+// data base (mongodb) connect to the node js
 
-const app = express();
-const route = express.Router();
+const { MongoClient } = require('mongodb')
+const client = new MongoClient('mongodb://localhost:27017');
 
-const reqFilter = (req, resp, next) => {
-   console.log("Require filter ");
-   if (!req.query.age) {
-      resp.send("Please provide age")
-   }else if(req.query.age<18){
-      resp.send("You are not access my page")
-   } else {
-      next();
-   }
+async function getDAta(){
+    await client.connect();
+    let db = client.db("e-comm");                    //e-comm --> is a data base name
+
+    // collection connect
+    let collection = db.collection("products");       //products --> is a collection name
+    let result = await collection.find({}).toArray()  // Read the collection
+
+    console.log(result)
 }
 
-route.use(reqFilter)
 
-route.get("/", (req, resp) => {
-   resp.send("I am home page")
-})
-
-route.get("/about", (req, resp) => {
-   resp.send("I am About page")
-})
-app.get("/team", (req, resp) => {
-   resp.send("I am Team page")
-})
-app.get("*",route)
-app.listen(8080)
+getDAta()

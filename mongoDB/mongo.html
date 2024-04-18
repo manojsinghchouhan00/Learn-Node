@@ -191,11 +191,11 @@
                 const batabase = "e-comm" <br> <br>
                 async function getData(){ <br>
                 &nbsp;&nbsp; let result = await client.connect() <br>
-                &nbsp;&nbsp; let db = result.db("e-comm") <br>
+                &nbsp;&nbsp; let db = result.db(batabase) <br>
                 &nbsp;&nbsp; let collection = db.collection("product"); <br>
-                &nbsp;&nbsp; console.log(collecion.find({}).toArray()) <br><br>
-                &nbsp;&nbsp; // let resp = await collection.find({}).toArray() <br>
-                &nbsp;&nbsp; // console.log(resp); <br>
+                &nbsp;&nbsp;// console.log(collecion.find({}).toArray()) <br><br>
+                &nbsp;&nbsp; let resp = await collection.find({}).toArray() <br>
+                &nbsp;&nbsp; console.log(resp); <br>
                 } <br>
                 getData();
             </p>
@@ -206,34 +206,207 @@
                 3. Handle Promise. <br>
             </p>
             <p class="border">
-                const {MongoClient} = require("mongodb") <br>
-                const url = "mongodb://localhost:27017"; <br> <br>
-                const batabase = "e-comm" <br> <br>
-                const client = new MongoClient(url) <br> <br>
-                async function dbConnection(){ <br>
+                <u>dbConnection.js </u><br>
+                const {MongoClient} = require("mongodb") <br> <br>
+                const client = new MongoClient("mongodb://localhost:27017") <br> <br>
+                async function dbConnect(){ <br>
                 &nbsp;&nbsp; let result = await client.connect() <br>
                 &nbsp;&nbsp; let db = result.db("e-comm") <br>
                 &nbsp;&nbsp; return db.collection("product"); <br>
-                } <br><br>
+                } <br>
+                module.exports = dbConnect;<br><br>
 
+                <u>dbConnection1.js </u><br>
                 <!--  old way -->
-                // Way one
-                dbConnection().then((resp)=>{ <br>
+                // old way <br /><br />
+                const dbConnect = require("./dbConnection") <br>
+
+                dbConnect().then((resp)=>{ <br>
                 resp.find().toArray().then((data)=>{ <br>
                 console.log("data :-",data) <br>
                 }) <br>
                 }) <br><br>
 
-                // Modern way <br>
-                <!-- Modern way --> <br>
+                // Modern way <br /><br />
+                <!-- Modern way -->
                 const main = async ()=>{ <br>
-                let data = await dbConnection(); <br>
+                let data = await dbConnect(); <br>
                 data = await data.find().toArray(); <br>
                 console.log("data :-", data) <br>
                 } <br>
                 main(); <br><br>
-                module.export = dbConnection;
             </p>
+
+        </div>
+        <div class="ex">
+            <h3>INSERT DATA FROM MONGODB</h3>
+            <p class="border">
+                <u> dbConnection.js</u> <br>
+                const {MongoClient} = require("mongodb") <br> <br>
+                const client = new MongoClient("mongodb://localhost:27017") <br> <br>
+                async function dbConnect(){ <br>
+                &nbsp;&nbsp; let result = await client.connect() <br>
+                &nbsp;&nbsp; let db = result.db("e-comm") <br>
+                &nbsp;&nbsp; return db.collection("product"); <br>
+                } <br>
+                module.exports = dbConnect;
+            </p>
+            <p class="border">
+                <u> insertData.js</u> <br>
+                const dbConnect = require("./dbConnection") <br> <br>
+                const insertData = async () => { <br>
+                &nbsp;&nbsp; let data = await dbConnect() <br>
+                &nbsp;&nbsp; data = data.insert([<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; {name:"max-1", brand : "moto",price :"15999"},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; {name:"max-2", brand : "micromax",price :"11999"},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; {name:"max-3", brand : "Samsang",price :"50999"},<br>
+                &nbsp;&nbsp; ]) <br> <br>
+                if (data.acknowledged) { <br>
+                console.log(data) <br>
+                } <br>
+
+                } <br>
+                insertData();
+            </p>
+            <p class="border">
+                <u> readData.js</u> <br>
+                const dbConnect = require("./dbConnection") <br> <br>
+                const readData = async () => { <br>
+                &nbsp;&nbsp; let data = await dbConnect() <br>
+                &nbsp;&nbsp; data = await data.find({}).toArray() <br>
+                &nbsp;&nbsp; console.log(data) <br>
+                } <br>
+                readData();
+            </p>
+            <p class="border">
+                <u> updateData.js</u> <br>
+                const dbConnect = require("./dbConnection") <br> <br>
+                const updateData = async () => { <br>
+                &nbsp;&nbsp; let data = await dbConnect() <br>
+                &nbsp;&nbsp; data = await data.updateMany( <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; {name : "max-1"},{$set :{name: "max-10", brand: "Samsang galaxy", price:
+                "59999" }} <br>
+                &nbsp;&nbsp; ) <br>
+                &nbsp;&nbsp; if (data.acknowledged) { <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; console.log(data) <br>
+                &nbsp;&nbsp; } <br>
+                } <br>
+                updateData();
+            </p>
+            <p class="border">
+                <u> deleteData.js</u> <br>
+                const dbConnect = require("./dbConnection") <br> <br>
+                const deleteData = async () => { <br>
+                &nbsp;&nbsp; let data = await dbConnect() <br>
+                &nbsp;&nbsp; data = await data.deleteOne({name : "max-10"}) <br>
+                &nbsp;&nbsp; if (data.acknowledged) { <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; console.log(data) <br>
+                &nbsp;&nbsp; } <br>
+                } <br>
+                deleteData();
+            </p>
+            <p class="border">
+                CRUD query in mongodb <br>
+                1. dbConnect.find({}).toArray() <br>
+                2. dbConnect.insertOne({name:"redmi",model : "2024"}) //insertMany <br>
+                3. dbConnect.updateOne({name : "max-1"},{$set : {name: "max-10",price:"11999"}}) //updateMany<br>
+                4. dbConnect.deleteOne({name : "max-1"}) // deleteMany<br>
+            </p>
+        </div>
+        <h3>API with mongodb</h3>
+        <div class="ex">
+            <u>Nodejs get api method</u> <br><br>
+            <u>mongoConnect.js</u> <br>
+            <p class="border">
+                const {MongoClient} = require("mongodb") <br>
+                const client = new MongoClient(url) <br><br>
+                const dbConnect = () =>{ <br>
+                &nbsp;&nbsp; client.connect();<br>
+                &nbsp;&nbsp; let db = client.db("databaseName"); // like : e-comm <br>
+                &nbsp;&nbsp; let collection = db.collection("collectionName") // like : product <br>
+                &nbsp;&nbsp; return collection; <br>
+                } <br><br>
+                module.exports = dbConnect;
+
+            </p>
+            <u>index.js</u> <br>
+            <p>Get Api method :- Get data from mongodb. </p>
+            <p class="border">
+                const express = require("express") <br>
+                const dbConnect = require("./mongoConnect") <br>
+                const app = express();<br><br>
+                app.get("/" async (req,resp)=>{ <br>
+                &nbsp;&nbsp; let data = await dbConnect(); <br>
+                &nbsp;&nbsp; data = await data.find({}).toArray(); <br>
+                &nbsp;&nbsp; resp.send(data); <br>
+                }) <br><br>
+                app.listen(8080)
+            </p>
+            <p>Post Api method </p>
+            <p>
+                Make post Api method <br>
+                send data from postman <br>
+                get data in nodejs by req object <br>
+                write code for insert data in mongodb.
+            </p>
+            <p class="border">
+                const express = require("express") <br>
+                const dbConnect = require("./mongoConnect") <br>
+                const app = express();<br><br>
+                app.use(express.json()) // body parser (middleware) <br>
+
+                app.post("/", async (req,resp)=>{ <br>
+                &nbsp;&nbsp; let data = await dbConnect(); <br>
+                &nbsp;&nbsp; data = await data.insertOne(req.body); <br>
+                &nbsp;&nbsp; resp.send(data); <br>
+                }) <br><br>
+                app.listen(8080)
+            </p>
+            <p>Get put method</p>
+            <p>
+                Make put method for api. <br>
+                Send data from postman. <br>
+                Handle data in nodejs by request object. <br>
+                Write code for update data in mongodb.
+            </p>
+            <p class="border">
+                const express = require("express") <br>
+                const mongodb = require("mongodb"); <br>
+                const dbConnect = require("./mongoConnect") <br>
+                const app = express();<br><br>
+                app.use(express.json()) // body parser (middleware) <br>
+
+                app.put("/:id", async (req,resp)=>{ <br>
+                &nbsp;&nbsp; let data = await dbConnect(); <br>
+                &nbsp;&nbsp; data = await data.updateOne({name:req.params.id},{$set:req.body}); <br>
+                &nbsp;&nbsp; data = await data.updateOne({_id : new mongodb.ObjectId(req.params.pid)},{$set
+                :req.body});<br>
+                &nbsp;&nbsp; resp.send(data); <br>
+                }) <br><br>
+                app.listen(8080)
+            </p>
+            <p>Get delete method</p>
+            <p>
+                Make detele method for api. <br>
+                send data from postman. <br>
+                Handle data in nodejs by request object. <br>
+                Write code for update data in mongodb.
+            </p>
+            <p class="border">
+                const express = require("express") <br>
+                const mongodb = require("mongodb"); <br>
+                const dbConnect = require("./mongoConnect") <br>
+                const app = express();<br><br>
+
+                app.delete("/:id", async (req,resp)=>{ <br>
+                &nbsp;&nbsp; let data = await dbConnect(); <br>
+
+                &nbsp;&nbsp; data = await data.deleteOne({_id : new mongodb.ObjectId(req.params.pid)}) <br>
+                resp.send(data); <br>
+                }) <br>
+                app.listen(8080)
+            </p>
+
         </div>
 
     </div>

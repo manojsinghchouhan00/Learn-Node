@@ -401,14 +401,259 @@
                 app.delete("/:id", async (req,resp)=>{ <br>
                 &nbsp;&nbsp; let data = await dbConnect(); <br>
 
-                &nbsp;&nbsp; data = await data.deleteOne({_id : new mongodb.ObjectId(req.params.pid)}) <br>
+                &nbsp;&nbsp; data = await data.deleteOne({_id : new mongodb.ObjectId(req.params.id)}) <br>
                 resp.send(data); <br>
                 }) <br>
                 app.listen(8080)
             </p>
-
         </div>
+        <h2>Mongoose</h2>
+        <div class="ex">
+            <p>
+                Mongoose is a mongodb object modeling tool. <br>
+                It is design to work in a asynchronous environment. <br>
+                Mongoose support both Promise and callbacks.
+            </p>
 
+            <p>Mongoose have a <u>model</u> and <u>schemas</u></p>
+            <p><b>Model</b> :- It is connect nodejs to mongodb by using schemas</p>
+            <p>
+                <b>Schemas</b> :- It is a fields like name, age. other field doesn't enter in mongoDB. <br>
+                It is also define a which type of a field like number, string, date and which is require and unique
+                fields.
+            </p>
+            <p>
+                <u>How to install Mongoose??</u> :- npm install monggoose
+            </p>
+            <p class="border">
+                const mongoose = require("mongoose") <br>
+                <br>
+                const main = async () => { <br>
+                &nbsp;&nbsp; await mongoose.connect("mongodb://localhost:27017/myapp") <br><br>
+                &nbsp;&nbsp; const studentSchema = new mongoose.Schema({ <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; name: String, <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; age: Number, <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; email: String, <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; city: String <br>
+                &nbsp;&nbsp; }) <br><br>
+                &nbsp;&nbsp; const studentModel = mongoose.model("student",studentSchema) <br><br>
+                &nbsp;&nbsp; let data = new studentModel({ <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; name :"samisha", <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; age:20, <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; email :"samik@gmail.com", <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; city : "Dilhi" <br>
+                &nbsp;&nbsp; }) <br>
+                &nbsp;&nbsp; let result = await data.save(); <br>
+                &nbsp;&nbsp; console.log(result) <br>
+                } <br>
+                main();
+            </p>
+            <h3>Crud operation with mongoose</h3>
+            <p class="border">
+                const mongoose = require("mongoose") <br>
+                mongoose.connect("mongodb://localhost:27017/myapp") <br><br>
+                const studentSchema = new mongoose.Schema({ <br>
+                &nbsp;&nbsp; name: String, <br>
+                &nbsp;&nbsp; age: Number, <br>
+                &nbsp;&nbsp; email: String, <br>
+                &nbsp;&nbsp; city: String <br>
+                }) <br><br>
+
+                const studentModel = mongoose.model("student", studentSchema) <br><br>
+
+                const main = async () => { <br>
+                &nbsp;&nbsp; let data = new studentModel({ <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; name :"samisha", <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; age:20, <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; email :"samik@getMaxListeners.com", <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; city : "Dilhi" <br>
+                &nbsp;&nbsp; }) <br><br>
+                &nbsp;&nbsp; let result = await data.save(); <br>
+                &nbsp;&nbsp; console.log(result) <br>
+                } <br>
+                // main(); <br> <br>
+
+                const updateData = async () => { <br>
+                &nbsp;&nbsp; let data = await studentModel.updateOne( <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; { name: "samisha" }, { $set: { name: "samisha1", age: 25 } } <br>
+                &nbsp;&nbsp; ) <br> <br>
+                &nbsp;&nbsp; console.log(data); <br>
+                } <br>
+                // updateData(); <br> <br>
+
+                const getData = async () => { <br>
+                &nbsp;&nbsp; // let data = await studentModel.find() <br>
+                &nbsp;&nbsp; let data = await studentModel.find({ name: "samisha" }) <br>
+                &nbsp;&nbsp; console.log(data); <br>
+                } <br>
+                // getData() <br><br>
+
+                const deleteData = async () => { <br>
+                &nbsp;&nbsp; let data = await studentModel.deleteOne({ name: "samisha" } ) <br>
+                &nbsp;&nbsp; console.log(data); <br>
+                } <br>
+                deleteData();
+            </p>
+            <h3>Api with mongoose (project level basic api)</h3>
+            <p>
+                1. Make config file for mongoDB. <br>
+                2. Make route : get, post, put, and delete. <br>
+                3. Get data from postman and save in DB.
+            </p>
+            <p class="border">
+                <u>config.js</u><br>
+                const mongoose = require("mongoose") <br>
+                mongoose.connect("mongodb://localhost:27017/myapp") <br>
+            </p>
+            <p class="border">
+                <u>userModel.js</u><br>
+                const mongoose = require("mongoose") <br>
+                const studentSchema = new mongoose.Schema({ <br>
+                &nbsp;&nbsp; name: String, <br>
+                &nbsp;&nbsp; age: Number, <br>
+                &nbsp;&nbsp; email: String, <br>
+                &nbsp;&nbsp; city: String <br>
+                }) <br>
+                module.exports = mongoose.model("student", studentSchema) <br>
+            </p>
+            <p class="border">
+                <u>index.js</u><br>
+                const express = require("express") <br>
+                require("./config") <br>
+                const student = require("./userModel") <br><br>
+
+                const app = express(); <br>
+                app.use(express.json()) // parse body <br><br>
+
+                app.get("/", async (req, resp) => { <br>
+                &nbsp;&nbsp; let data = await student.find() <br>
+                &nbsp;&nbsp; resp.send(data) <br>
+                }) <br><br>
+
+                app.post("/", async (req, resp) => { <br>
+                &nbsp;&nbsp; let data = new student(req.body) <br>
+                &nbsp;&nbsp; data = await data.save() <br>
+                &nbsp;&nbsp; resp.send(data) <br>
+                }) <br><br>
+
+                app.put("/:_id", async (req, resp) => { <br>
+                &nbsp;&nbsp; console.log(req.params) <br>
+                &nbsp;&nbsp; let data = await student.updateOne( <br>
+                &nbsp;&nbsp; req.params, { $set: req.body } <br>
+                &nbsp;&nbsp; ) <br>
+                &nbsp;&nbsp; resp.send(data) <br>
+                }) <br><br>
+
+                app.delete("/:_id", async (req, resp) => { <br>
+                &nbsp;&nbsp; console.log(req.params) <br>
+                &nbsp;&nbsp; let data = await student.deleteOne(req.body) <br>
+                &nbsp;&nbsp; resp.send(data) <br>
+                }) <br><br>
+
+                app.get("/search/:key", async (req, resp) => { <br>
+                &nbsp;&nbsp; let data = await student.find({ <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; $or:[ <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {"name" : {$regex:req.params.key}}, <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {"city" : {$regex:req.params.key}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; ] <br>
+                &nbsp;&nbsp; }) <br>
+                &nbsp;&nbsp; resp.send(data) <br>
+                }) <br><br>
+
+                app.listen(8080); <br>
+            </p>
+        </div>
+        <h3>Upload file in nodejs</h3>
+        <div class="ex">
+            <p>
+                Install multer npm package. <br>
+                Make router for upload file. <br>
+                Write code for upload file.
+            </p>
+            <p class="border">
+                const express = require("express"); <br>
+                const multer = require("multer"); <br>
+                <br>
+                const app = express(); <br>
+                <br>
+                const upload = multer({ <br>
+                &nbsp;&nbsp; storage : multer.diskStorage({ <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; destination : function(req,file,cb){ <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; cb(null,"uploads") <br> // uploads : it is a folder.
+                &nbsp;&nbsp; &nbsp;&nbsp; }, <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; filename : function(req,file,cb){ <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; cb(null,file.filename+"_"+Date.now()+".jpg") <br>
+                &nbsp;&nbsp; &nbsp;&nbsp; } <br>
+                &nbsp;&nbsp; }) <br>
+                }).single('user-file') <br> // (user-file :- key name and value is image path.)
+                <br>
+                app.post("/upload",upload,(req,resp)=>{ <br>
+                &nbsp;&nbsp; resp.send("file upload") <br>
+                }) <br>
+                <br>
+                app.listen(8080) <br>
+            </p>
+        </div>
+        <h3>OS module in node js</h3>
+        <div class="ex">
+            <p class="border">
+                const os = require('os') <br><br>
+                console.log("os module :-",os) <br>
+                console.log("os module :-",os.arch()) <br>
+                console.log("os module :-",os.freemem()) <br>
+                console.log("os module :-",os.totalmem) <br>
+                console.log("os module :-",os.hostname()) <br>
+                console.log("os module :-",os.platform()) <br>
+                console.log("os module :-",os.userInfo()) <br>
+            </p>
+        </div>
+        <h3>Events and emmiter in nodejs.</h3>
+        <div class="ex">
+            <p>
+                Event create in nodejs with the help of api not button click. <br>
+                Button click event only use browser (js and html).
+            </p>
+            <p class="border">
+                const express = require("express"); <br>
+                const EventEmmiter = require("events"); <br>
+                <br>
+                const app = express(); <br>
+                const event = new EventEmmiter(); <br>
+                <br>
+                let count = 0; <br>
+                event.on("count api",()=>{ <br>
+                &nbsp;&nbsp; count++; <br>
+                &nbsp;&nbsp; console.log("Event called",count) <br>
+                }) <br>
+                <br>
+                app.get("/",(req,resp)=>{ <br>
+                &nbsp;&nbsp; resp.send("event called") <br>
+                &nbsp;&nbsp; event.emit("count api") <br>
+                }) <br>
+                <br>
+                app.get("/search",(req,resp)=>{ <br>
+                &nbsp;&nbsp; event.emit("count api") <br>
+                <br>
+                &nbsp;&nbsp; resp.send("event called") <br>
+                }) <br>
+                <br>
+                app.get("/update",(req,resp)=>{ <br>
+                &nbsp;&nbsp; event.emit("count api") <br>
+                <br>
+                &nbsp;&nbsp; resp.send("event called") <br>
+                }) <br>
+                <br>
+                app.listen(8080); <br>
+            </p>
+            <h3>REPL :- READ EVAL PRINT LOOP.</h3>
+            <p class="border">
+                REPL :- It is a command line tool. Js and nodejs code directly run with commond line. <br>
+                <br>
+                node enter. <br>
+                .editor enter <br>
+                .help enter
+            </p>
+        </div>
     </div>
 </body>
 

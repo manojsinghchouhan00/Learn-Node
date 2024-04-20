@@ -10,11 +10,18 @@ app.get("/", async (req, resp) => {
     resp.send(data)
 })
 
+app.get("/:id", async (req, resp) => {
+    let data = await dbConnect()
+    data = await data.find({ _id: new mongodb.ObjectId(req.params.id)}).toArray();
+    resp.send(data)
+})
+
 // post api 
 app.use(express.json()) //  body parser (middleware)
 app.post("/", async (req, resp) => {
     let data = await dbConnect();
     data = await data.insertOne(req.body);
+    console.log("data :",data)
     resp.send(data);
 })
 
@@ -26,7 +33,6 @@ app.put("/:pid", async (req, resp) => {
     data = await data.updateOne({ _id: new mongodb.ObjectId(req.params.pid) }, { $set: req.body });
     resp.send(data);
 })
-
 
 app.delete("/:id", async (req, resp) => {
     let data = await dbConnect();
